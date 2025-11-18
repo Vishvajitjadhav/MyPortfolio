@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaPaperPlane, FaEnvelope, FaPhone } from 'react-icons/fa'
 import './Contact.css'
 
 const Contact = () => {
@@ -13,6 +13,20 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null)
 
   const contactInfo = [
+    {
+      icon: FaEnvelope,
+      label: 'Email',
+      value: 'vishvajitjadhav01@gmail.com',
+      link: 'mailto:vishvajitjadhav01@gmail.com',
+      color: '#dc2626',
+    },
+    {
+      icon: FaPhone,
+      label: 'Phone',
+      value: '+91 9767875421',
+      link: 'tel:+919767875421',
+      color: '#10b981',
+    },
     {
       icon: FaMapMarkerAlt,
       label: 'Location',
