@@ -1,54 +1,21 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaLinkedin, FaGithub, FaMapMarkerAlt, FaPaperPlane, FaEnvelope, FaPhone } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import './Contact.css'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    purpose: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    reason: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
 
-  const contactInfo = [
-    {
-      icon: FaEnvelope,
-      label: 'Email',
-      value: 'vishvajitjadhav01@gmail.com',
-      link: 'mailto:vishvajitjadhav01@gmail.com',
-      color: '#dc2626',
-    },
-    {
-      icon: FaPhone,
-      label: 'Phone',
-      value: '+91 9767875421',
-      link: 'tel:+919767875421',
-      color: '#10b981',
-    },
-    {
-      icon: FaMapMarkerAlt,
-      label: 'Location',
-      value: 'Pune, Maharashtra',
-      link: null,
-      color: '#3b82f6',
-    },
-    {
-      icon: FaLinkedin,
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/vishvajit09',
-      link: 'https://linkedin.com/in/vishvajit09',
-      color: '#0077b5',
-    },
-    {
-      icon: FaGithub,
-      label: 'GitHub',
-      value: 'github.com/vishvajit09',
-      link: 'https://github.com/Vishvajitjadhav',
-      color: '#ffffff',
-    },
-  ]
+  const reasonOptions = ['Freelance', 'Collaboration', 'Enquiry', 'Hire']
 
   const handleChange = (e) => {
     setFormData({
@@ -57,28 +24,39 @@ const Contact = () => {
     })
   }
 
+  const handleReasonSelect = (reason) => {
+    setFormData({
+      ...formData,
+      reason: reason,
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitStatus(null)
 
-    // Using Formspree or EmailJS - for now using mailto as fallback
-    // You can integrate EmailJS or Formspree here
-    const subject = encodeURIComponent(`Contact from ${formData.name} - ${formData.purpose}`)
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nPurpose: ${formData.purpose}\n\nMessage:\n${formData.message}`
-    )
-    
-    // For production, use EmailJS or Formspree
-    // For now, using mailto as a simple solution
-    window.location.href = `mailto:vishvajitjadhav01@gmail.com?subject=${subject}&body=${body}`
-    
-    setTimeout(() => {
+    try {
+      // Create email content
+      const subject = encodeURIComponent(formData.reason || 'Contact from Portfolio')
+      const body = encodeURIComponent(
+        `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nReason: ${formData.reason}\n\nMessage:\n${formData.message}`
+      )
+      
+      // Use mailto to open email client
+      window.location.href = `mailto:vishvajitjadhav01@gmail.com?subject=${subject}&body=${body}`
+      
+      setTimeout(() => {
+        setIsSubmitting(false)
+        setSubmitStatus('success')
+        setFormData({ firstName: '', lastName: '', email: '', reason: '', message: '' })
+        setTimeout(() => setSubmitStatus(null), 3000)
+      }, 1000)
+    } catch (error) {
+      console.error('Error sending message:', error)
       setIsSubmitting(false)
-      setSubmitStatus('success')
-      setFormData({ name: '', purpose: '', message: '' })
-      setTimeout(() => setSubmitStatus(null), 3000)
-    }, 1000)
+      setSubmitStatus('error')
+    }
   }
 
   const containerVariants = {
@@ -102,6 +80,51 @@ const Contact = () => {
     },
   }
 
+  const contactLinks = [
+    {
+      icon: FaEnvelope,
+      label: 'Email',
+      value: 'vishvajitjadhav01@gmail.com',
+      link: 'mailto:vishvajitjadhav01@gmail.com',
+      color: '#3b82f6', // Blue
+    },
+    {
+      icon: FaPhone,
+      label: 'Phone',
+      value: '+91 9767875421',
+      link: 'tel:+919767875421',
+      color: '#10b981', // Green
+    },
+    {
+      icon: FaMapMarkerAlt,
+      label: 'Location',
+      value: 'Pune, Maharashtra',
+      link: null,
+      color: '#f59e0b', // Amber/Orange
+    },
+    {
+      icon: FaLinkedin,
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/vishvajit09',
+      link: 'https://linkedin.com/in/vishvajit09',
+      color: '#0077b5', // LinkedIn Blue
+    },
+    {
+      icon: FaGithub,
+      label: 'GitHub',
+      value: 'github.com/Vishvajitjadhav',
+      link: 'https://github.com/Vishvajitjadhav',
+      color: '#ffffff', // GitHub White
+    },
+    {
+      icon: FaXTwitter,
+      label: 'X',
+      value: 'x.com/Vishvajit1009',
+      link: 'https://x.com/Vishvajit1009',
+      color: '#ffffff', // X White (for dark background)
+    },
+  ]
+
   return (
     <section id="contact" className="contact">
       <motion.div
@@ -121,40 +144,97 @@ const Contact = () => {
         </motion.div>
 
         <motion.div className="contact-content" variants={itemVariants}>
-          <div className="contact-text">
-            <h3 className="contact-heading">Let's Connect</h3>
-            <p className="contact-description">
-              I'm always open to discussing new opportunities, interesting projects, or just having a chat about technology.
-              Fill out the form below or connect with me on social media!
-            </p>
+          <div className="contact-links-section">
+            <h3 className="contact-links-title">Connect With Me</h3>
+            <div className="contact-links-row">
+              {contactLinks.map((link, index) => {
+                const IconComponent = link.icon
+                const LinkComponent = link.link ? 'a' : 'div'
+                const props = link.link
+                  ? { href: link.link, target: '_blank', rel: 'noopener noreferrer' }
+                  : {}
+
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                  >
+                    <LinkComponent
+                      className="contact-link-item"
+                      {...props}
+                      style={{ cursor: link.link ? 'pointer' : 'default' }}
+                    >
+                      <IconComponent 
+                        className="contact-link-icon" 
+                        style={{ color: link.color }}
+                      />
+                      <span className="contact-link-label">{link.label}</span>
+                      <span className="contact-link-value">{link.value}</span>
+                    </LinkComponent>
+                  </motion.div>
+                )
+              })}
+            </div>
           </div>
 
           <div className="contact-form-wrapper">
+            <h3 className="contact-form-title">Let's Talk</h3>
             <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                    placeholder="First name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+
               <div className="form-group">
-                <label htmlFor="name">Your Name</label>
+                <label htmlFor="email">Email</label>
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   required
-                  placeholder="Enter your name"
+                  placeholder="Your email"
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="purpose">Purpose</label>
-                <input
-                  type="text"
-                  id="purpose"
-                  name="purpose"
-                  value={formData.purpose}
-                  onChange={handleChange}
-                  required
-                  placeholder="e.g., Job Opportunity, Collaboration, Question"
-                />
+                <label htmlFor="reason">Reason for Contact</label>
+                <div className="reason-options">
+                  {reasonOptions.map((reason) => (
+                    <button
+                      key={reason}
+                      type="button"
+                      className={`reason-btn ${formData.reason === reason ? 'active' : ''}`}
+                      onClick={() => handleReasonSelect(reason)}
+                    >
+                      {reason}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="form-group">
@@ -166,7 +246,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows="5"
-                  placeholder="Tell me about your project or how I can help..."
+                  placeholder="Your message"
                 />
               </div>
 
@@ -175,7 +255,7 @@ const Contact = () => {
                   'Sending...'
                 ) : (
                   <>
-                    <FaPaperPlane /> Send Message
+                    Send Message <FaPaperPlane />
                   </>
                 )}
               </button>
@@ -189,39 +269,17 @@ const Contact = () => {
                   Message sent successfully! I'll get back to you soon.
                 </motion.div>
               )}
-            </form>
-          </div>
 
-          <div className="contact-cards">
-            {contactInfo.map((info, index) => {
-              const IconComponent = info.icon
-              const CardComponent = info.link ? 'a' : 'div'
-              const props = info.link
-                ? { href: info.link, target: '_blank', rel: 'noopener noreferrer' }
-                : {}
-
-              return (
+              {submitStatus === 'error' && (
                 <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="submit-error"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
                 >
-                  <CardComponent
-                    className="contact-card"
-                    {...props}
-                    style={{ cursor: info.link ? 'pointer' : 'default' }}
-                  >
-                    <div className="contact-icon-wrapper" style={{ backgroundColor: `${info.color}20` }}>
-                      <IconComponent className="contact-icon" style={{ color: info.color }} />
-                    </div>
-                    <div className="contact-info">
-                      <div className="contact-label">{info.label}</div>
-                      <div className="contact-value">{info.value}</div>
-                    </div>
-                  </CardComponent>
+                  Failed to send message. Please try again.
                 </motion.div>
-              )
-            })}
+              )}
+            </form>
           </div>
         </motion.div>
 
@@ -237,4 +295,3 @@ const Contact = () => {
 }
 
 export default Contact
-

@@ -1,53 +1,55 @@
 import { motion } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import './Projects.css'
 
 const Projects = () => {
   const projects = [
     {
-      title: 'AI Interview & Resume Mentor',
-      period: 'Sep 2025 – Nov 2025',
-      description: 'A full-stack Java application using Spring Boot, React, MySQL, and Gemini AI for mock interview generation and resume analysis.',
+      title: 'Yatrik - Hotel Booking & Management System',
+      period: 'Personal Project | 2025',
+      description: 'Designed a scalable backend architecture inspired by Airbnb using Spring Boot, JPA, and PostgreSQL. Implemented booking workflows including availability checks, inventory control, and transaction safety.',
       features: [
-        'Voice-based interaction with Web Speech API for real-time interview simulation',
-        'Resume Analyzer using Apache PDFBox and AI text analysis for feedback',
-        'Mock interview generation with AI-powered questions',
+        'Scalable backend architecture using Spring Boot, JPA, and PostgreSQL',
+        'Booking workflows with availability checks and inventory control',
+        'Transaction safety to prevent double bookings',
+        'Role-based access control (USER / HOST) with booking status lifecycle',
+        'Comprehensive exception handling and error management',
       ],
-      tech: ['Java', 'Spring Boot', 'React', 'MySQL', 'Gemini AI', 'Web Speech API', 'Apache PDFBox'],
-      github: '#',
-      demo: '#',
+      tech: ['Java', 'Spring Boot', 'JPA', 'PostgreSQL', 'RESTful APIs', 'Microservices'],
+      github: 'https://github.com/Vishvajitjadhav/Yatrik-backend',
       color: '#dc2626',
-      image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop&q=80',
     },
     {
-      title: 'Zaminwala - The Real Estate Listing Platform',
+      title: 'Zaminwala - Real Estate Listing Platform',
       period: 'Mar 2025 – May 2025',
-      description: 'A comprehensive real estate platform with RESTful microservices architecture for listings and user management.',
+      description: 'A comprehensive real estate platform with RESTful microservices architecture for property listings and user management.',
       features: [
-        'RESTful microservices using Java, Spring Boot, and JPA/Hibernate',
-        'MySQL database schemas with optimized queries',
-        'JWT authentication for secure and scalable performance',
+        'RESTful microservices for property listings and user management using Java and Spring Boot',
+        'Relational MySQL schemas with optimized queries',
+        'JWT-based authentication for secure and scalable performance',
+        'Property search and filtering capabilities',
       ],
       tech: ['Java', 'Spring Boot', 'JPA/Hibernate', 'MySQL', 'JWT', 'Microservices'],
-      github: '#',
-      demo: '#',
+      github: 'https://github.com/Vishvajitjadhav/Zaminwala',
       color: '#3b82f6',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&q=80',
     },
     {
-      title: 'AI Storyteller - A Story Generation App',
-      period: 'June 2025 – Aug 2025',
-      description: 'An AI-powered storytelling application that generates stories from images and genres using Google Gemini API.',
+      title: 'AI-ML Vehicle Anomaly Detection',
+      period: 'Personal Project | 2025',
+      description: 'End-to-end Vehicle Sensor Anomaly Detection system using Python, Scikit-Learn, FastAPI, and Docker. Built ML models to detect abnormal automotive sensor behavior for predictive maintenance.',
       features: [
-        'Story generation from images and selected genres',
-        'Text-to-speech (TTS) for real-time AI voice narration',
-        'Interactive story playback with user controls',
+        'ML models (Random Forest, SVM) to detect abnormal automotive sensor behavior',
+        'Data preprocessing, train/validation/test split with high recall optimization',
+        'Containerized workflow using Docker for Linux/on-prem deployment',
+        'FastAPI microservice for real-time anomaly detection',
+        'Safety-critical detection optimized for automotive predictive maintenance',
       ],
-      tech: ['Python', 'Streamlit', 'Google Gemini API', 'Text-to-Speech'],
-      github: '#',
-      demo: '#',
+      tech: ['Python', 'Scikit-Learn', 'FastAPI', 'Docker', 'Machine Learning', 'Data Preprocessing'],
+      github: 'https://github.com/Vishvajitjadhav/AI-ML-Vehicle-Anomaly-Detection',
       color: '#8b5cf6',
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&q=80',
     },
   ]
 
@@ -117,16 +119,6 @@ const Projects = () => {
                     >
                       <FaGithub />
                     </a>
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                      aria-label="Demo"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <FaExternalLinkAlt />
-                    </a>
                   </div>
                 </div>
               </div>
@@ -159,4 +151,3 @@ const Projects = () => {
 }
 
 export default Projects
-

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -8,10 +8,13 @@ import Projects from './components/Projects'
 import Education from './components/Education'
 import Contact from './components/Contact'
 import Stamp from './components/Stamp'
+import ScrollToTop from './components/ScrollToTop'
+import ParticleBackground from './components/ParticleBackground'
 import './App.css'
 
 function App() {
   const [activeSection, setActiveSection] = useState('home')
+  const heroRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,17 +37,24 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleStampClick = () => {
+    if (heroRef.current && heroRef.current.handleProfileImageChange) {
+      heroRef.current.handleProfileImageChange()
+    }
+  }
+
   return (
     <div className="App">
+      <ParticleBackground />
       <Navbar activeSection={activeSection} />
-      <Hero />
+      <Hero ref={heroRef} />
       <About />
       <Skills />
       <Experience />
       <Projects />
       <Education />
       <Contact />
-      <Stamp />
+      <Stamp onStampClick={handleStampClick} />
     </div>
   )
 }

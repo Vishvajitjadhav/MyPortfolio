@@ -6,12 +6,13 @@ const Experience = () => {
   const experiences = [
     {
       company: 'Consultadd Inc.',
-      position: 'Trainee Engineer',
+      position: 'Software Engineer (Trainee)',
       period: 'May 2025 – Oct 2025',
-      location: 'Remote',
+      location: 'Pune, Maharashtra',
       achievements: [
-        'Developed REST APIs using Java, Spring Boot, and Hibernate to automate a finance client\'s workflow, reducing manual spreadsheet operations',
-        'Implemented backend business logic, service-layer components, API integrations, and microservice modules in an Agile environment',
+        'Developed and maintained REST APIs using Java, Spring Boot, and Hibernate for a finance-domain client.',
+        'Implemented service-layer business logic, validations, and database interactions following layered architecture.',
+        'Reduced manual spreadsheet-driven workflows by automating backend data processing pipelines.'
       ],
       tech: ['Java', 'Spring Boot', 'Hibernate', 'REST APIs', 'Microservices', 'Agile'],
     },
@@ -28,12 +29,12 @@ const Experience = () => {
     },
     {
       company: 'Elite Software Pvt. Ltd.',
-      position: 'Web Developer Intern',
+      position: 'Software Engineer Intern',
       period: 'Jan 2023 – Jun 2023',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Developed dynamic web applications using Python and Django, creating RESTful APIs to enable efficient client-server communication',
-        'Built responsive front-end interfaces with HTML, CSS, and JavaScript, enhancing cross-device user experience',
+        'Contributed to backend development of web applications by designing APIs and database schemas.',
+        'Worked on SQL queries, backend validations, and client-server data flow.',
       ],
       tech: ['Python', 'Django', 'RESTful APIs', 'HTML', 'CSS', 'JavaScript'],
     },

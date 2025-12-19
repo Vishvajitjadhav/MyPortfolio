@@ -31,6 +31,7 @@ body {
   background-color: var(--dark-bg);
   color: var(--text-primary);
   overflow-x: hidden;
+  position: relative;
 }
 
 code {

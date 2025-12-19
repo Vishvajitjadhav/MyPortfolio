@@ -1,15 +1,13 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { useState, forwardRef, useImperativeHandle } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaDownload } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
 import './Hero.css'
 
-// Profile image - replace with your actual image path
-// Place your image at: src/assets/profile.jpg
-// Then uncomment the line below and comment out the profileImage = null line
 import profileImage from '../assets/profile.jpg'
-//const profileImage = null // Set to null to use placeholder, or import your image above
+import profileImage4 from '../assets/profile4.jpg'
 
-const Hero = () => {
+const Hero = forwardRef((props, ref) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -32,7 +30,15 @@ const Hero = () => {
     },
   }
 
-  const [isDownloading, setIsDownloading] = useState(false)
+  const [currentProfileImage, setCurrentProfileImage] = useState(profileImage)
+  const [isFlipping, setIsFlipping] = useState(false)
+  
+  // Words for different profile images
+  const profile1Words = ['Java', 'SpringBoot', 'API', 'React', 'DSA', 'SQL']
+  const profile4Words = ['Storyteller', 'Writer', 'Developer', 'Coder', 'Traveller', 'Designer']
+  
+  const [floatingWords, setFloatingWords] = useState(profile1Words)
+  const [isRotating, setIsRotating] = useState(false)
 
   const scrollToContact = () => {
     const element = document.getElementById('contact')
@@ -41,63 +47,35 @@ const Hero = () => {
     }
   }
 
-  const handleResumeDownload = async (e) => {
+  const handleResumeDownload = (e) => {
     e.preventDefault()
-    setIsDownloading(true)
-
-    try {
-      const response = await fetch('/resume.pdf', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/pdf',
-        },
-      })
-      
-      if (!response.ok) {
-        throw new Error(`Failed to fetch resume: ${response.status} ${response.statusText}`)
-      }
-      
-      const blob = await response.blob()
-      
-      // Verify it's actually a PDF
-      if (blob.type !== 'application/pdf' && blob.size > 0) {
-        // Force PDF type if not set correctly
-        const pdfBlob = new Blob([blob], { type: 'application/pdf' })
-        const url = window.URL.createObjectURL(pdfBlob)
-        const link = document.createElement('a')
-        link.href = url
-        link.download = 'Vishvajit_Jadhav_Resume.pdf'
-        link.style.display = 'none'
-        document.body.appendChild(link)
-        link.click()
-        
-        // Clean up after a delay
-        setTimeout(() => {
-          document.body.removeChild(link)
-          window.URL.revokeObjectURL(url)
-        }, 100)
-      } else {
-        // Use the blob as-is
-        const url = window.URL.createObjectURL(blob)
-        const link = document.createElement('a')
-        link.href = url
-        link.download = 'Vishvajit_Jadhav_Resume.pdf'
-        link.style.display = 'none'
-        document.body.appendChild(link)
-        link.click()
-        
-        setTimeout(() => {
-          document.body.removeChild(link)
-          window.URL.revokeObjectURL(url)
-        }, 100)
-      }
-    } catch (error) {
-      console.error('Error downloading resume:', error)
-      alert('Failed to download resume. Please check if the file exists at public/resume.pdf')
-    } finally {
-      setIsDownloading(false)
-    }
+    window.open('https://drive.google.com/file/d/1S7HQL5atpvLvXnKczQ7gm4fxI9tXD0-Z/view?usp=sharing', '_blank')
   }
+
+  const handleProfileImageChange = () => {
+    setIsFlipping(true)
+    setIsRotating(true)
+    
+    // Start rotation animation
+    setTimeout(() => {
+      setCurrentProfileImage(prev => {
+        const newImage = prev === profileImage ? profileImage4 : profileImage
+        // Update floating words based on new image
+        setFloatingWords(newImage === profileImage ? profile1Words : profile4Words)
+        return newImage
+      })
+    }, 300) // Half of flip duration
+    
+    // End animations
+    setTimeout(() => {
+      setIsFlipping(false)
+      setIsRotating(false)
+    }, 600) // Full flip duration
+  }
+
+  useImperativeHandle(ref, () => ({
+    handleProfileImageChange
+  }))
 
   return (
     <section id="home" className="hero">
@@ -165,9 +143,8 @@ const Hero = () => {
               <button
                 onClick={handleResumeDownload}
                 className="btn-resume"
-                disabled={isDownloading}
               >
-                <FaDownload /> {isDownloading ? 'Downloading...' : 'Resume'}
+                <FaDownload /> Resume
               </button>
             </motion.div>
             <motion.div
@@ -192,6 +169,14 @@ const Hero = () => {
               >
                 <FaGithub />
               </a>
+              <a
+                href="https://x.com/Vishvajit1009"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (Twitter)"
+              >
+                <FaXTwitter />
+              </a>
             </motion.div>
           </motion.div>
 
@@ -204,23 +189,44 @@ const Hero = () => {
           >
             <div className="hero-image-wrapper">
               <div className="image-glow"></div>
-              {profileImage ? (
-                <img
-                  src={profileImage}
-                  alt="Vishvajit Jadhav"
-                  className="hero-image"
-                />
-              ) : (
-                <div className="image-placeholder">
-                  <span>VAJ</span>
-                </div>
-              )}
+              <div className={`hero-image-container-flip ${isFlipping ? 'flipping' : ''}`}>
+                {currentProfileImage ? (
+                  <img
+                    src={currentProfileImage}
+                    alt="Vishvajit Jadhav"
+                    className="hero-image"
+                  />
+                ) : (
+                  <div className="image-placeholder">
+                    <span>VAJ</span>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="floating-elements">
-              <div className="float-element float-1">Java</div>
-              <div className="float-element float-2">Spring</div>
-              <div className="float-element float-3">React</div>
-              <div className="float-element float-4">API</div>
+            <div className={`floating-elements ${isRotating ? 'rotating' : ''}`}>
+              {floatingWords.map((word, index) => {
+                const totalWords = floatingWords.length
+                const angle = (360 / totalWords) * index
+                const radius = 220 // Increased distance from center
+                
+                return (
+                  <motion.div
+                    key={`${word}-${currentProfileImage === profileImage ? '1' : '4'}-${index}`}
+                    className="float-element"
+                    style={{
+                      '--angle': `${angle}deg`,
+                      '--radius': `${radius}px`,
+                      '--index': index,
+                      '--total': totalWords,
+                    }}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    {word}
+                  </motion.div>
+                )
+              })}
             </div>
           </motion.div>
         </motion.div>
@@ -238,7 +244,7 @@ const Hero = () => {
       </motion.div>
     </section>
   )
-}
+})
 
 export default Hero
 
