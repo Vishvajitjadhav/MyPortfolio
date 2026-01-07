@@ -49,7 +49,7 @@ const Hero = forwardRef((props, ref) => {
 
   const handleResumeDownload = (e) => {
     e.preventDefault()
-    window.open('https://drive.google.com/file/d/1S7HQL5atpvLvXnKczQ7gm4fxI9tXD0-Z/view?usp=sharing', '_blank')
+    window.open('https://drive.google.com/file/d/1I4tCGMTLjB6jUQCJSLkVwbGwjulH0ZGH/view?usp=sharing', '_blank')
   }
 
   const handleProfileImageChange = () => {
