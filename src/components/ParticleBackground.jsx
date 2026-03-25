@@ -10,7 +10,8 @@ const ParticleBackground = () => {
 
     const ctx = canvas.getContext('2d')
     let animationFrameId
-    let particles = []
+    let stars = []
+    let shootingStars = []
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
@@ -20,70 +21,129 @@ const ParticleBackground = () => {
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
 
-    class Particle {
+    // Regular Stars
+    class Star {
       constructor() {
         this.x = Math.random() * canvas.width
         this.y = Math.random() * canvas.height
-        this.size = Math.random() * 2 + 0.5
-        this.speedX = (Math.random() - 0.5) * 0.5
-        this.speedY = (Math.random() - 0.5) * 0.5
-        this.opacity = Math.random() * 0.5 + 0.2
+        this.size = Math.random() * 1.5 + 0.2
+        // Subtly move upwards for a parallax feel
+        this.speedY = -(Math.random() * 0.15 + 0.05) 
+        this.opacity = Math.random()
+        this.twinkleSpeed = Math.random() * 0.02 + 0.005
       }
 
       update() {
-        this.x += this.speedX
         this.y += this.speedY
+        this.opacity += this.twinkleSpeed
+        
+        // Twinkle effect bounds
+        if (this.opacity <= 0.2 || this.opacity >= 1) {
+          this.twinkleSpeed = -this.twinkleSpeed
+        }
 
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1
+        if (this.y < 0) {
+          this.y = canvas.height
+          this.x = Math.random() * canvas.width
+        }
       }
 
       draw() {
-        ctx.fillStyle = `rgba(220, 38, 38, ${this.opacity})`
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
         ctx.fill()
       }
     }
 
-    const createParticles = () => {
-      const particleCount = Math.floor((canvas.width * canvas.height) / 15000)
-      particles = []
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle())
+    // Shooting Stars
+    class ShootingStar {
+      constructor() {
+        this.reset()
+      }
+
+      reset() {
+        this.x = Math.random() * canvas.width * 1.5
+        this.y = 0
+        this.len = Math.random() * 80 + 20
+        this.speedX = -(Math.random() * 8 + 4)
+        this.speedY = Math.random() * 8 + 4
+        this.size = Math.random() * 1.5 + 0.5
+        this.active = false
+        // Random timeout to spawn
+        this.waitTime = Math.random() * 3000 + 1000
+        this.timer = 0
+      }
+
+      update(deltaTime) {
+        if (!this.active) {
+          this.timer += deltaTime
+          if (this.timer >= this.waitTime) {
+            this.active = true
+            this.timer = 0
+          }
+          return
+        }
+
+        this.x += this.speedX
+        this.y += this.speedY
+
+        if (this.x < -this.len || this.y > canvas.height + this.len) {
+          this.reset()
+        }
+      }
+
+      draw() {
+        if (!this.active) return
+        ctx.beginPath()
+        ctx.moveTo(this.x, this.y)
+        ctx.lineTo(this.x - this.speedX * 2, this.y - this.speedY * 2)
+        ctx.strokeStyle = `rgba(255, 255, 255, 0.4)`
+        ctx.lineWidth = this.size
+        ctx.stroke()
       }
     }
 
-    createParticles()
+    const init = () => {
+      stars = []
+      shootingStars = []
+      const numStars = Math.floor((canvas.width * canvas.height) / 4000)
+      for (let i = 0; i < numStars; i++) {
+        stars.push(new Star())
+      }
+      for (let i = 0; i < 3; i++) {
+        shootingStars.push(new ShootingStar())
+      }
+    }
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    init()
 
-      particles.forEach((particle, i) => {
-        particle.update()
-        particle.draw()
+    let lastTime = 0
+    const animate = (time) => {
+      const deltaTime = time - lastTime
+      lastTime = time
 
-        // Draw connections
-        particles.slice(i + 1).forEach((otherParticle) => {
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
+      // Deep space gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      gradient.addColorStop(0, '#09090b') // Very dark top
+      gradient.addColorStop(1, '#18181b') // Slightly lighter bottom to simulate horizon glow
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-          if (distance < 120) {
-            ctx.strokeStyle = `rgba(220, 38, 38, ${0.1 * (1 - distance / 120)})`
-            ctx.lineWidth = 0.5
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.stroke()
-          }
-        })
+      stars.forEach((star) => {
+        star.update()
+        star.draw()
+      })
+
+      shootingStars.forEach((sStar) => {
+        sStar.update(deltaTime)
+        sStar.draw()
       })
 
       animationFrameId = requestAnimationFrame(animate)
     }
 
-    animate()
+    animate(0)
 
     return () => {
       window.removeEventListener('resize', resizeCanvas)
@@ -91,7 +151,12 @@ const ParticleBackground = () => {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="particle-background" />
+  return (
+    <div className="particle-container">
+      <canvas ref={canvasRef} className="particle-background" />
+      <div className="space-arc"></div>
+    </div>
+  )
 }
 
 export default ParticleBackground

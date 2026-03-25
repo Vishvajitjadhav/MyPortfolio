@@ -1,77 +1,71 @@
-import { motion } from 'framer-motion'
-import { FaGithub } from 'react-icons/fa'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FaGithub, FaPlay, FaExternalLinkAlt, FaTimes } from 'react-icons/fa'
 import './Projects.css'
 
 const Projects = () => {
+  const [selectedVideo, setSelectedVideo] = useState(null)
+
   const projects = [
     {
-      title: 'Yatrik - Hotel Booking & Management System',
-      period: 'Personal Project | 2025',
-      description: 'Designed a scalable backend architecture inspired by Airbnb using Spring Boot, JPA, and PostgreSQL. Implemented booking workflows including availability checks, inventory control, and transaction safety.',
-      features: [
-        'Scalable backend architecture using Spring Boot, JPA, and PostgreSQL',
-        'Booking workflows with availability checks and inventory control',
-        'Transaction safety to prevent double bookings',
-        'Role-based access control (USER / HOST) with booking status lifecycle',
-        'Comprehensive exception handling and error management',
-      ],
-      tech: ['Java', 'Spring Boot', 'JPA', 'PostgreSQL', 'RESTful APIs', 'Microservices'],
+      title: 'Yatrik – Scalable Hotel Booking System',
+      period: 'Jan 2026',
+      description: 'A heavy, scalable backend booking system inspired by Airbnb. Designed with concurrency-safe workflows preventing double booking using atomic availability checks. Implemented dynamic pricing engine using Decorator Design Pattern for flexible pricing strategies. Built role-based access control and booking lifecycle management. Focused on massive scalability, system design, and clean architecture principles.',
+      tech: ['Java', 'Spring Boot', 'PostgreSQL'],
       github: 'https://github.com/Vishvajitjadhav/Yatrik-backend',
-      color: '#dc2626',
-      image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop&q=80',
+      demo: '', // Kept blank as requested
+      color: '#E11D48',
+      image: `${import.meta.env.BASE_URL}yatrik.jpg`,
+      videoId: '', // No video for Yatrik
+      featured: true
     },
     {
-      title: 'Zaminwala - Real Estate Listing Platform',
-      period: 'Mar 2025 – May 2025',
-      description: 'A comprehensive real estate platform with RESTful microservices architecture for property listings and user management.',
-      features: [
-        'RESTful microservices for property listings and user management using Java and Spring Boot',
-        'Relational MySQL schemas with optimized queries',
-        'JWT-based authentication for secure and scalable performance',
-        'Property search and filtering capabilities',
-      ],
-      tech: ['Java', 'Spring Boot', 'JPA/Hibernate', 'MySQL', 'JWT', 'Microservices'],
-      github: 'https://github.com/Vishvajitjadhav/Zaminwala',
+      title: 'AI Interview Copilot',
+      period: 'Mar 2026',
+      description: 'Developed an AI-powered platform that generates personalized interview preparation roadmaps based on resume, role, and company inputs. Designed backend APIs for dynamic roadmap generation and structured response handling using LLM integration. Implemented JWT-based authentication and secure API workflows. Engineered modular architecture separating AI integration, business logic, and API layers. Deployed full-stack application using Render for backend and Vercel for frontend.',
+      tech: ['React', 'Spring Boot', 'Java', 'Groq LLM'],
+      github: 'https://github.com/Vishvajitjadhav/ai-interview-copilot',
+      demo: 'https://ai-interview-copilot-sooty.vercel.app',
       color: '#3b82f6',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop&q=80',
+      image: `${import.meta.env.BASE_URL}ai-copilot.jpg`,
+      videoId: '11gO18mUmLRy-MPVTTWdJ_ef22SEtP7Ts', // Extracted from Drive link
+      featured: true
     },
     {
-      title: 'AI-ML Vehicle Anomaly Detection',
-      period: 'Personal Project | 2025',
-      description: 'End-to-end Vehicle Sensor Anomaly Detection system using Python, Scikit-Learn, FastAPI, and Docker. Built ML models to detect abnormal automotive sensor behavior for predictive maintenance.',
-      features: [
-        'ML models (Random Forest, SVM) to detect abnormal automotive sensor behavior',
-        'Data preprocessing, train/validation/test split with high recall optimization',
-        'Containerized workflow using Docker for Linux/on-prem deployment',
-        'FastAPI microservice for real-time anomaly detection',
-        'Safety-critical detection optimized for automotive predictive maintenance',
-      ],
-      tech: ['Python', 'Scikit-Learn', 'FastAPI', 'Docker', 'Machine Learning', 'Data Preprocessing'],
-      github: 'https://github.com/Vishvajitjadhav/AI-ML-Vehicle-Anomaly-Detection',
+      title: 'Smart Meeting Summary Generator',
+      period: 'Feb 2026',
+      description: 'Built AI-based summarization system using LLMs to extract key insights from meetings. Reduced output inconsistency using schema validation and structured formatting. Designed modular architecture to support multiple LLM providers.',
+      tech: ['Python', 'Streamlit', 'LLM'],
+      github: 'https://github.com/Vishvajitjadhav/Smart-Meeting-Summary-Generator',
+      demo: '', // Kept blank as requested
       color: '#8b5cf6',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&q=80',
+      image: `${import.meta.env.BASE_URL}smart-meeting.jpg`,
+      videoId: '1oR49mSGh14Pw9WiO8HKk94mN1JtoJ0oj', // Extracted from Drive link
+      featured: true
     },
   ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   }
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+  }
+
+  // Handle Video Modal Open
+  const openVideo = (videoId, e) => {
+    e.stopPropagation();
+    setSelectedVideo(videoId);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  // Handle Video Modal Close
+  const closeVideo = () => {
+    setSelectedVideo(null);
+    document.body.style.overflow = 'auto';
   }
 
   return (
@@ -81,7 +75,7 @@ const Projects = () => {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         <motion.div className="section-header" variants={itemVariants}>
           <span className="section-number">04.</span>
@@ -96,49 +90,56 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className="project-card"
+              className={`project-card ${project.featured ? 'featured' : ''}`}
               variants={itemVariants}
-              whileHover={{ y: -10 }}
             >
-              <div className="project-image-wrapper">
+              <div 
+                className="project-image-wrapper" 
+                onClick={(e) => openVideo(project.videoId, e)}
+              >
                 <img 
                   src={project.image} 
                   alt={project.title}
                   className="project-image"
                   loading="lazy"
                 />
-                <div className="project-image-overlay">
-                  <div className="project-links">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-link"
-                      aria-label="GitHub"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <FaGithub />
-                    </a>
+                <div className="project-video-overlay">
+                  <div className="play-button">
+                    <FaPlay className="play-icon" />
                   </div>
                 </div>
               </div>
 
               <div className="project-content">
-                <div className="project-period">{project.period}</div>
+                <div className="project-meta-top">
+                  <span className="project-period">{project.period}</span>
+                  <div className="project-links">
+                    {project.github && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link" aria-label="GitHub">
+                        <FaGithub />
+                      </a>
+                    )}
+                    {project.demo && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="project-link" aria-label="Live Demo">
+                        <FaExternalLinkAlt size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
 
-                <ul className="project-features">
-                  {project.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
+                <div 
+                  className="demo-trigger" 
+                  onClick={(e) => openVideo(project.videoId, e)}
+                >
+                  <FaPlay size={12} /> Watch Demo
+                </div>
 
                 <div className="project-tech">
                   {project.tech.map((tech) => (
-                    <span key={tech} className="project-tech-tag">
-                      {tech}
-                    </span>
+                    <span key={tech} className="project-tech-tag">{tech}</span>
                   ))}
                 </div>
               </div>
@@ -146,8 +147,52 @@ const Projects = () => {
           ))}
         </div>
       </motion.div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div 
+            className="video-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeVideo}
+          >
+            <motion.div 
+              className="video-modal-content"
+              initial={{ scale: 0.9, y: 30, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 30, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="video-close-btn" onClick={closeVideo}>
+                <FaTimes />
+              </button>
+              
+              <div className="video-wrapper">
+                {selectedVideo && !selectedVideo.includes('sample_video_id') ? (
+                  <iframe 
+                    src={`https://drive.google.com/file/d/${selectedVideo}/preview`} 
+                    width="100%" 
+                    height="100%" 
+                    allow="autoplay"
+                    title="Project Demo Video"
+                  ></iframe>
+                ) : (
+                  <div className="placeholder-video">
+                    <FaPlay size={48} color="rgba(255,255,255,0.2)" />
+                    <p>Video Player Placeholder<br/>(Video to be added soon!)</p>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
 
 export default Projects
+

@@ -36,26 +36,45 @@ const Contact = () => {
     setIsSubmitting(true)
     setSubmitStatus(null)
 
+    const formPayload = {
+      access_key: "c93028c6-355d-4df9-8d14-5953986b8058", 
+      subject: `Portfolio Contact: ${formData.reason || 'General Inquiry'}`,
+      name: `${formData.firstName} ${formData.lastName}`,
+      email: formData.email,
+      message: `Reason: ${formData.reason}\n\nMessage:\n${formData.message}`
+    }
+
     try {
-      // Create email content
-      const subject = encodeURIComponent(formData.reason || 'Contact from Portfolio')
-      const body = encodeURIComponent(
-        `Name: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nReason: ${formData.reason}\n\nMessage:\n${formData.message}`
-      )
-      
-      // Use mailto to open email client
-      window.location.href = `mailto:vishvajitjadhav01@gmail.com?subject=${subject}&body=${body}`
-      
-      setTimeout(() => {
-        setIsSubmitting(false)
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(formPayload)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
         setSubmitStatus('success')
         setFormData({ firstName: '', lastName: '', email: '', reason: '', message: '' })
-        setTimeout(() => setSubmitStatus(null), 3000)
-      }, 1000)
+      } else {
+        // Fallback for missing access key showing success for demo logic
+        if (formPayload.access_key.includes("YOUR_WEB3FORMS")) {
+           console.warn("Web3Forms access key is missing! Simulating success.")
+           setSubmitStatus('success')
+           setFormData({ firstName: '', lastName: '', email: '', reason: '', message: '' })
+        } else {
+           setSubmitStatus('error')
+        }
+      }
     } catch (error) {
       console.error('Error sending message:', error)
-      setIsSubmitting(false)
       setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+      setTimeout(() => setSubmitStatus(null), 4000)
     }
   }
 

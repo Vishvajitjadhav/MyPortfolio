@@ -5,18 +5,19 @@
 }
 
 :root {
-  --primary-red: #dc2626;
-  --primary-red-dark: #b91c1c;
-  --primary-red-light: #ef4444;
-  --dark-bg: #0a0a0a;
-  --dark-surface: #1a1a1a;
-  --dark-surface-light: #2a2a2a;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --accent-blue: #3b82f6;
+  --primary-red: #E11D48; /* Rose-600 */
+  --primary-red-dark: #BE123C; /* Rose-700 */
+  --primary-red-light: #FB7185; /* Rose-400 */
+  --dark-bg: #09090b; /* Zinc-950 */
+  --dark-surface: #18181b; /* Zinc-900 */
+  --dark-surface-light: #27272a; /* Zinc-800 */
+  --text-primary: #f4f4f5; /* Zinc-100 */
+  --text-secondary: #a1a1aa; /* Zinc-400 */
+  --accent-blue: #3b82f6; 
   --accent-purple: #8b5cf6;
   --accent-green: #10b981;
 }
+
 
 html {
   scroll-behavior: smooth;

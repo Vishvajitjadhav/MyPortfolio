@@ -6,26 +6,17 @@ const Experience = () => {
   const experiences = [
     {
       company: 'Consultadd Inc.',
-      position: 'Software Engineer (Trainee)',
+      position: 'Software Engineer', // Updated from "Software Engineer (Trainee)"
       period: 'May 2025 – Oct 2025',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Developed and maintained REST APIs using Java, Spring Boot, and Hibernate for a finance-domain client.',
-        'Implemented service-layer business logic, validations, and database interactions following layered architecture.',
-        'Reduced manual spreadsheet-driven workflows by automating backend data processing pipelines.'
+        'Built and enhanced REST APIs using Spring Boot, supporting multiple backend workflows across applications',
+        'Designed transaction-safe service logic ensuring data consistency during concurrent database operations',
+        'Automated backend data processing pipelines, reducing manual effort by approximately 60% and improving reliability',
+        'Optimized SQL queries for faster data retrieval, improving response time in reporting workflows',
+        'Debugged and resolved production issues, improving system stability and reducing failure cases'
       ],
       tech: ['Java', 'Spring Boot', 'Hibernate', 'REST APIs', 'Microservices', 'Agile'],
-    },
-    {
-      company: 'FUEL - Friends Union for Energising Lives',
-      position: 'Java Intern',
-      period: 'June 2024 – Dec 2024',
-      location: 'Pune, Maharashtra',
-      achievements: [
-        'Developed Spring Boot-based backend APIs for a real estate project, improving data flow and system performance',
-        'Applied Java, SQL, and OOP concepts in a live project, gaining hands-on experience in database management',
-      ],
-      tech: ['Java', 'Spring Boot', 'SQL', 'OOP', 'MySQL'],
     },
     {
       company: 'Elite Software Pvt. Ltd.',
@@ -33,8 +24,10 @@ const Experience = () => {
       period: 'Jan 2023 – Jun 2023',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Contributed to backend development of web applications by designing APIs and database schemas.',
-        'Worked on SQL queries, backend validations, and client-server data flow.',
+        'Developed backend APIs and designed relational database schemas for internal applications',
+        'Wrote optimized SQL queries to support high-frequency CRUD operations and validations',
+        'Integrated frontend with backend services ensuring smooth data flow and API reliability',
+        'Improved application performance by debugging issues in client-server architecture'
       ],
       tech: ['Python', 'Django', 'RESTful APIs', 'HTML', 'CSS', 'JavaScript'],
     },

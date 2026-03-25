@@ -7,22 +7,22 @@ const Skills = () => {
     {
       title: 'Languages',
       icon: FaCode,
-      skills: ['Java', 'Python', 'JavaScript', 'SQL'],
+      skills: ['Java', 'C#', 'Python', 'TypeScript', 'JavaScript', 'SQL'],
     },
     {
       title: 'Frameworks',
       icon: FaWrench,
-      skills: ['Spring Boot', 'Hibernate', 'React', 'Angular', 'JUnit', 'RESTful APIs', 'Microservices'],
+      skills: ['Spring Boot', 'ASP.NET Core', 'Hibernate', 'React', 'FastAPI', 'Streamlit', 'Microservices'],
     },
     {
       title: 'Databases',
       icon: FaDatabase,
-      skills: ['MySQL', 'PostgreSQL', 'SQL'],
+      skills: ['PostgreSQL', 'MySQL', 'Redis'],
     },
     {
-      title: 'Tools & DevOps',
+      title: 'Tools & AI',
       icon: FaCog,
-      skills: ['Git', 'Docker', 'Jenkins', 'Postman', 'IntelliJ IDEA', 'VS Code'],
+      skills: ['Git', 'Docker', 'Jenkins', 'LLM Integration', 'Postman', 'AWS'],
     },
   ]
 
