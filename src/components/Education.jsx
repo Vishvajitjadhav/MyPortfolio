@@ -12,22 +12,22 @@ const Education = () => {
       grade: 'CGPA: 8.49/10',
       description: 'Focused on software engineering, data structures, algorithms, and system design.',
     },
-    {
-      institution: 'Saint Dnyaneshwar Mahavidhyalaya (SPPU)',
-      degree: 'HSC (Science)',
-      location: 'Newasa, Maharashtra',
-      period: 'Aug 2018 – May 2020',
-      grade: '64.46%',
-      description: 'Completed higher secondary education with focus on science and mathematics.',
-    },
-    {
-      institution: 'Seventh-Day Adventist School',
-      degree: 'SSC',
-      location: 'Newasa, Maharashtra',
-      period: 'Aug 2017 – May 2018',
-      grade: '83.40%',
-      description: 'Completed secondary school education with excellent academic performance.',
-    },
+    // {
+    //   institution: 'Saint Dnyaneshwar Mahavidhyalaya (SPPU)',
+    //   degree: 'HSC (Science)',
+    //   location: 'Newasa, Maharashtra',
+    //   period: 'Aug 2018 – May 2020',
+    //   grade: '64.46%',
+    //   description: 'Completed higher secondary education with focus on science and mathematics.',
+    // },
+    // {
+    //   institution: 'Seventh-Day Adventist School',
+    //   degree: 'SSC',
+    //   location: 'Newasa, Maharashtra',
+    //   period: 'Aug 2017 – May 2018',
+    //   grade: '83.40%',
+    //   description: 'Completed secondary school education with excellent academic performance.',
+    // },
   ]
 
   const containerVariants = {
