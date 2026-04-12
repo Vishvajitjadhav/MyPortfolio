@@ -16,7 +16,7 @@ const Projects = () => {
       demo: '', // Kept blank as requested
       color: '#E11D48',
       image: `${import.meta.env.BASE_URL}yatrik.jpg`,
-      videoId: '', // No video for Yatrik
+      videoId: '1ij9CAPaNIpBysmKZljSAbhinGGyZXwuD', // No video for Yatrik
       featured: true
     },
     {
