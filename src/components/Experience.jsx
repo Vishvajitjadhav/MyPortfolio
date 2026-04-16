@@ -21,7 +21,7 @@ const Experience = () => {
     {
       company: 'Elite Software Pvt. Ltd.',
       position: 'Software Engineer Intern',
-      period: 'Jan 2023 – Jun 2023',
+      period: 'Jan 2023 – Dec 2023',
       location: 'Pune, Maharashtra',
       achievements: [
         'Developed backend APIs and designed relational database schemas for internal applications',
