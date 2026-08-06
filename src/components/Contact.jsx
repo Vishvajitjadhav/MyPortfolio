@@ -306,7 +306,7 @@ const Contact = () => {
           <p className="footer-text">
             Designed & Built by <span className="footer-name">Vishvajit Ajit Jadhav</span>
           </p>
-          <p className="footer-year">© 2025</p>
+          <p className="footer-year">© 2026</p>
         </motion.div>
       </motion.div>
     </section>
