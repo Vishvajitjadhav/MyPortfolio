@@ -5,31 +5,51 @@ import './Experience.css'
 const Experience = () => {
   const experiences = [
     {
+      company: 'Speed IT Innovations',
+      position: 'AI Developer',
+      period: 'May 2026 – Present',
+      location: 'Pune, Maharashtra',
+      achievements: [
+        'Working on production LLM applications — backend LLM orchestration and structured outputs in Java/Spring Boot',
+        'Implemented LLM guardrails (input/output validation, topic restriction, fallback flows) for reliable responses',
+        'Reduced end-to-end LLM latency through prompt optimization, response streaming, and caching',
+      ],
+      tech: ['Java', 'Spring Boot', 'LLM', 'RAG', 'Prompt Engineering'],
+    },
+    {
       company: 'Consultadd Inc.',
-      position: 'Software Engineer', // Updated from "Software Engineer (Trainee)"
+      position: 'Software Engineer (Trainee)',
       period: 'May 2025 – Oct 2025',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Built and enhanced REST APIs using Spring Boot, supporting multiple backend workflows across applications',
-        'Designed transaction-safe service logic ensuring data consistency during concurrent database operations',
-        'Automated backend data processing pipelines, reducing manual effort by approximately 60% and improving reliability',
-        'Optimized SQL queries for faster data retrieval, improving response time in reporting workflows',
-        'Debugged and resolved production issues, improving system stability and reducing failure cases'
+        'Built concurrency-safe, transactional backend services in Java/Spring Boot for US-based SMB clients',
+        'Optimized SQL queries and database access paths, improving API response times on large datasets',
+        'Resolved production issues via structured debugging and logging, improving system stability',
+        'Translated client requirements into working demos and business-aligned APIs with cross-functional teams',
       ],
       tech: ['Java', 'Spring Boot', 'Hibernate', 'REST APIs', 'Microservices', 'Agile'],
     },
     {
-      company: 'Elite Software Pvt. Ltd.',
+      company: 'Independent AI Engineering',
+      position: 'Self-Directed',
+      period: 'Nov 2025 – Apr 2026',
+      location: 'Remote',
+      achievements: [
+        'Specialization sprint in GenAI and full-stack Java; built and shipped three applications',
+        'Covered RAG pipelines, LLM integration, payment flows, and concurrency-safe backend design',
+      ],
+      tech: ['Java', 'Spring Boot', 'Python', 'RAG', 'LLM', 'Stripe'],
+    },
+    {
+      company: 'Elite Softwares Pvt. Ltd.',
       position: 'Software Engineer Intern',
       period: 'Jan 2023 – Dec 2023',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Developed backend APIs and designed relational database schemas for internal applications',
-        'Wrote optimized SQL queries to support high-frequency CRUD operations and validations',
-        'Integrated frontend with backend services ensuring smooth data flow and API reliability',
-        'Improved application performance by debugging issues in client-server architecture'
+        'Developed RESTful APIs in Java/Spring Boot and designed relational schemas for internal applications',
+        'Wrote optimized SQL for CRUD operations, backend validations, and application performance',
       ],
-      tech: ['Python', 'Django', 'RESTful APIs', 'HTML', 'CSS', 'JavaScript'],
+      tech: ['Java', 'Spring Boot', 'REST APIs', 'SQL'],
     },
   ]
 
