@@ -103,7 +103,6 @@ const Stamp = ({ onStampClick }) => {
             fontWeight="700"
             fontFamily="'Courier New', monospace"
             letterSpacing="3"
-            textTransform="uppercase"
             filter="url(#glow)"
           >
             <textPath href="#textPathOuter" startOffset="5%" textAnchor="start">
