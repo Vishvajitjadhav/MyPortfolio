@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaGithub, FaPlay, FaExternalLinkAlt, FaTimes } from 'react-icons/fa'
+import { FaGithub, FaPlay, FaExternalLinkAlt, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import './Projects.css'
 
 const Projects = () => {
   const [selectedVideo, setSelectedVideo] = useState(null)
+  const sliderRef = useRef(null)
+
+  const slide = (dir) => {
+    const el = sliderRef.current
+    if (!el) return
+    const card = el.querySelector('.project-card')
+    const gap = 24
+    const amount = card ? card.offsetWidth + gap : el.clientWidth * 0.8
+    el.scrollBy({ left: dir * amount, behavior: 'smooth' })
+  }
 
   const projects = [
     {
@@ -98,7 +108,14 @@ const Projects = () => {
           <div className="section-line"></div>
         </motion.div>
 
-        <div className="projects-grid">
+        <div className="projects-slider-wrap">
+          <button className="slider-arrow left" onClick={() => slide(-1)} aria-label="Previous projects">
+            <FaChevronLeft />
+          </button>
+          <button className="slider-arrow right" onClick={() => slide(1)} aria-label="Next projects">
+            <FaChevronRight />
+          </button>
+          <div className="projects-slider" ref={sliderRef}>
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -177,6 +194,7 @@ const Projects = () => {
               </div>
             </motion.div>
           ))}
+          </div>
         </div>
       </motion.div>
 

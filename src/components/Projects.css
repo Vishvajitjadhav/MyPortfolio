@@ -8,23 +8,72 @@
   padding: 0 40px;
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+/* ===== Horizontal slider of vertical cards ===== */
+.projects-slider-wrap {
+  position: relative;
+}
+
+.projects-slider {
+  display: flex;
   gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 4px;
+  padding: 6px 4px 18px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.projects-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 42%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: rgba(11, 13, 22, 0.85);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 15px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+
+.slider-arrow:hover {
+  background: var(--accent-grad);
+  color: #04121a;
+  border-color: transparent;
+}
+
+.slider-arrow.left {
+  left: -14px;
+}
+
+.slider-arrow.right {
+  right: -14px;
 }
 
 .project-card {
+  flex: 0 0 300px;
+  width: 300px;
+  scroll-snap-align: start;
   background: var(--glass);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: 20px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 18px;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
   display: flex;
   flex-direction: column;
-  height: 100%;
   position: relative;
 }
 
@@ -290,12 +339,6 @@
   text-align: center;
 }
 
-@media (max-width: 680px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 768px) {
   .projects-container {
     padding: 0 20px;
@@ -303,13 +346,22 @@
   .video-modal-overlay {
     padding: 16px;
   }
+  /* On touch, hide arrows — users swipe the slider */
+  .slider-arrow {
+    display: none;
+  }
+  .projects-slider {
+    scroll-padding: 0 20px;
+  }
 }
 
 @media (max-width: 480px) {
   .project-card {
+    flex: 0 0 82vw;
+    width: 82vw;
     padding: 16px;
   }
   .project-image-wrapper {
-    height: 170px;
+    height: 180px;
   }
 }
