@@ -96,6 +96,8 @@ const Hero = forwardRef((props, ref) => {
               <span className="spec-dot">·</span>
               <span className="spec-pill">Spring Boot</span>
               <span className="spec-dot">·</span>
+              <span className="spec-pill">React</span>
+              <span className="spec-dot">·</span>
               <span className="spec-pill">LLM / RAG</span>
             </motion.div>
             <motion.p className="hero-description" variants={itemVariants}>
