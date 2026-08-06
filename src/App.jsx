@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Stamp from './components/Stamp'
 import ScrollToTop from './components/ScrollToTop'
 import ParticleBackground from './components/ParticleBackground'
+import CursorGlow from './components/CursorGlow'
 import './App.css'
 
 function App() {
@@ -17,24 +18,29 @@ function App() {
   const heroRef = useRef(null)
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact']
-      const scrollPosition = window.scrollY + 100
+    const sections = ['home', 'about', 'skills', 'experience', 'projects', 'education', 'contact']
+    const elements = sections
+      .map((id) => document.getElementById(id))
+      .filter(Boolean)
 
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
+    // Track which section occupies the middle band of the viewport.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // pick the most-visible intersecting section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]) setActiveSection(visible[0].target.id)
+      },
+      {
+        // a horizontal band around the viewport middle
+        rootMargin: '-45% 0px -45% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
       }
-    }
+    )
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    elements.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
   }, [])
 
   const handleStampClick = () => {
@@ -46,6 +52,7 @@ function App() {
   return (
     <div className="App">
       <ParticleBackground />
+      <CursorGlow />
       <Navbar activeSection={activeSection} />
       <Hero ref={heroRef} />
       <About />
