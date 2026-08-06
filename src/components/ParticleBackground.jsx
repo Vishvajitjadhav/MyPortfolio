@@ -12,6 +12,7 @@ const ParticleBackground = () => {
     let animationFrameId
     let stars = []
     let shootingStars = []
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
@@ -107,28 +108,44 @@ const ParticleBackground = () => {
     const init = () => {
       stars = []
       shootingStars = []
-      const numStars = Math.floor((canvas.width * canvas.height) / 4000)
+      // Fewer stars on small screens to keep it light on mobile.
+      const isSmall = window.innerWidth < 768
+      const divisor = isSmall ? 8000 : 4200
+      const numStars = Math.floor((canvas.width * canvas.height) / divisor)
       for (let i = 0; i < numStars; i++) {
         stars.push(new Star())
       }
-      for (let i = 0; i < 3; i++) {
+      const numShooting = reducedMotion ? 0 : isSmall ? 2 : 3
+      for (let i = 0; i < numShooting; i++) {
         shootingStars.push(new ShootingStar())
       }
     }
 
     init()
 
+    const paintBackground = () => {
+      // Deep space gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      gradient.addColorStop(0, '#05060a')
+      gradient.addColorStop(0.6, '#080a12')
+      gradient.addColorStop(1, '#0b0d16')
+      ctx.fillStyle = gradient
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+    }
+
+    // Reduced motion: paint one static starfield and stop.
+    if (reducedMotion) {
+      paintBackground()
+      stars.forEach((star) => star.draw())
+      return () => window.removeEventListener('resize', resizeCanvas)
+    }
+
     let lastTime = 0
     const animate = (time) => {
       const deltaTime = time - lastTime
       lastTime = time
 
-      // Deep space gradient
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
-      gradient.addColorStop(0, '#09090b') // Very dark top
-      gradient.addColorStop(1, '#18181b') // Slightly lighter bottom to simulate horizon glow
-      ctx.fillStyle = gradient
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      paintBackground()
 
       stars.forEach((star) => {
         star.update()
@@ -143,10 +160,22 @@ const ParticleBackground = () => {
       animationFrameId = requestAnimationFrame(animate)
     }
 
-    animate(0)
+    // Pause the loop when the tab is hidden to save battery/CPU.
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId)
+      } else {
+        lastTime = performance.now()
+        animationFrameId = requestAnimationFrame(animate)
+      }
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+    document.addEventListener('visibilitychange', handleVisibility)
 
     return () => {
       window.removeEventListener('resize', resizeCanvas)
+      document.removeEventListener('visibilitychange', handleVisibility)
       cancelAnimationFrame(animationFrameId)
     }
   }, [])
