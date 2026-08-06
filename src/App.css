@@ -4,16 +4,116 @@
   overflow-x: hidden;
 }
 
-/* Section Spacing - Full Width */
+/* Section spacing */
 section {
   width: 100%;
-  padding: 80px 0;
+  padding: 96px 0;
   position: relative;
+}
+
+.container {
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ===== Shared section header ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.section-number {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.title-normal {
+  color: var(--text-strong);
+}
+
+.title-accent {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+}
+
+/* ===== Shared glass card ===== */
+.glass-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow: 0 18px 50px rgba(2, 6, 23, 0.55), 0 0 0 1px rgba(34, 211, 238, 0.12);
+  background: var(--glass-strong);
+}
+
+/* ===== Utility pill / tag ===== */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid rgba(34, 211, 238, 0.22);
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  background: rgba(34, 211, 238, 0.22);
+  color: var(--text-strong);
+}
+
+.text-grad {
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @media (max-width: 768px) {
   section {
-    padding: 60px 0;
+    padding: 64px 0;
+  }
+  .container {
+    padding: 0 20px;
+  }
+  .section-header {
+    margin-bottom: 36px;
+    gap: 12px;
   }
 }
-

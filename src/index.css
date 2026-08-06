@@ -5,73 +5,116 @@
 }
 
 :root {
-  --primary-red: #E11D48; /* Rose-600 */
-  --primary-red-dark: #BE123C; /* Rose-700 */
-  --primary-red-light: #FB7185; /* Rose-400 */
-  --dark-bg: #09090b; /* Zinc-950 */
-  --dark-surface: #18181b; /* Zinc-900 */
-  --dark-surface-light: #27272a; /* Zinc-800 */
-  --text-primary: #f4f4f5; /* Zinc-100 */
-  --text-secondary: #a1a1aa; /* Zinc-400 */
-  --accent-blue: #3b82f6; 
-  --accent-purple: #8b5cf6;
+  /* ===== Space design system ===== */
+  /* Base */
+  --bg-0: #05060a;          /* deepest space */
+  --bg-1: #0b0d16;          /* elevated base */
+  --bg-2: #12131c;          /* raised surface */
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-strong: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Accents */
+  --accent: #22d3ee;        /* cyan */
+  --accent-2: #6366f1;      /* indigo */
+  --nebula: #a855f7;        /* violet */
+  --accent-grad: linear-gradient(135deg, #6366f1, #22d3ee);
+  --nebula-grad: linear-gradient(135deg, #a855f7, #6366f1);
+  --accent-soft: rgba(34, 211, 238, 0.15);
+
+  /* Text */
+  --text: #e2e8f0;
+  --text-strong: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+
+  /* Radius & spacing */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --shadow-glow: 0 10px 40px rgba(34, 211, 238, 0.18);
+  --maxw: 1200px;
+
+  /* ===== Legacy aliases (kept so unmigrated CSS keeps working) ===== */
+  --primary-red: var(--accent);
+  --primary-red-dark: var(--accent-2);
+  --primary-red-light: var(--nebula);
+  --dark-bg: var(--bg-0);
+  --dark-surface: var(--bg-1);
+  --dark-surface-light: var(--bg-2);
+  --text-primary: var(--text);
+  --text-secondary: var(--text-muted);
+  --accent-blue: var(--accent-2);
+  --accent-purple: var(--nebula);
   --accent-green: #10b981;
 }
-
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--dark-bg);
-  color: var(--text-primary);
+  background-color: var(--bg-0);
+  color: var(--text);
   overflow-x: hidden;
   position: relative;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
 }
 
-/* Scrollbar Styling */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--dark-bg);
+  background: var(--bg-0);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--primary-red), var(--primary-red-dark));
+  background: var(--accent-grad);
   border-radius: 5px;
-  border: 2px solid var(--dark-bg);
+  border: 2px solid var(--bg-0);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--primary-red-dark), var(--primary-red));
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
 }
 
-/* Smooth transitions for all interactive elements */
-* {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Selection styling */
+/* Selection */
 ::selection {
-  background: var(--primary-red);
-  color: var(--text-primary);
+  background: rgba(99, 102, 241, 0.4);
+  color: var(--text-strong);
 }
-
 ::-moz-selection {
-  background: var(--primary-red);
-  color: var(--text-primary);
+  background: rgba(99, 102, 241, 0.4);
+  color: var(--text-strong);
 }
 
+/* Reduced motion: calm everything */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
