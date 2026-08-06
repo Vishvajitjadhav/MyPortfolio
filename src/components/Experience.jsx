@@ -10,11 +10,11 @@ const Experience = () => {
       period: 'May 2026 – Present',
       location: 'Pune, Maharashtra',
       achievements: [
-        'Working on production LLM applications — backend LLM orchestration and structured outputs in Java/Spring Boot',
-        'Implemented LLM guardrails (input/output validation, topic restriction, fallback flows) for reliable responses',
-        'Reduced end-to-end LLM latency through prompt optimization, response streaming, and caching',
+        'Building production AI applications across a React, Node.js, and .NET Core stack, integrating Claude for LLM-powered features',
+        'Implemented RAG pipelines and LLM guardrails (input/output validation, topic restriction, fallback flows) for reliable, grounded responses',
+        'Containerized services with Docker and reduced end-to-end LLM latency through prompt optimization, response streaming, and caching',
       ],
-      tech: ['Java', 'Spring Boot', 'LLM', 'RAG', 'Prompt Engineering'],
+      tech: ['React', 'Node.js', '.NET Core', 'Docker', 'Claude', 'LLM', 'RAG'],
     },
     {
       company: 'Consultadd Inc.',

@@ -102,7 +102,7 @@ const Projects = () => {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              className={`project-card ${project.featured ? 'featured' : ''}`}
+              className="project-card"
               variants={itemVariants}
             >
               <div
