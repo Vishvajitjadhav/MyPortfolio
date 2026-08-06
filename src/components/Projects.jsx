@@ -32,6 +32,18 @@ const Projects = () => {
       featured: true
     },
     {
+      title: 'RAG File Search System',
+      period: 'Dec 2025',
+      description: 'An offline Retrieval-Augmented Generation system enabling local semantic search across files and folders. Built a retrieval pipeline with chunking, embedding generation, and vector similarity search over documents, then integrated an LLM for context-grounded answers — improving retrieval accuracy over plain keyword search.',
+      tech: ['Python', 'Embeddings', 'Vector Search', 'LLM'],
+      github: 'https://github.com/Vishvajitjadhav/RAG-File-Search-System',
+      demo: '',
+      color: '#22d3ee',
+      image: null,
+      videoId: '',
+      featured: true
+    },
+    {
       title: 'Smart Meeting Summary Generator',
       period: 'Feb 2026',
       description: 'Built AI-based summarization system using LLMs to extract key insights from meetings. Reduced output inconsistency using schema validation and structured formatting. Designed modular architecture to support multiple LLM providers.',
@@ -93,21 +105,30 @@ const Projects = () => {
               className={`project-card ${project.featured ? 'featured' : ''}`}
               variants={itemVariants}
             >
-              <div 
-                className="project-image-wrapper" 
-                onClick={(e) => openVideo(project.videoId, e)}
+              <div
+                className={`project-image-wrapper ${project.videoId ? 'has-video' : ''}`}
+                onClick={project.videoId ? (e) => openVideo(project.videoId, e) : undefined}
+                style={{ '--project-color': project.color }}
               >
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="project-image"
-                  loading="lazy"
-                />
-                <div className="project-video-overlay">
-                  <div className="play-button">
-                    <FaPlay className="play-icon" />
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="project-image"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="project-image-placeholder">
+                    <FaGithub className="placeholder-icon" />
                   </div>
-                </div>
+                )}
+                {project.videoId && (
+                  <div className="project-video-overlay">
+                    <div className="play-button">
+                      <FaPlay className="play-icon" />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="project-content">
@@ -130,12 +151,23 @@ const Projects = () => {
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
 
-                <div 
-                  className="demo-trigger" 
-                  onClick={(e) => openVideo(project.videoId, e)}
-                >
-                  <FaPlay size={12} /> Watch Demo
-                </div>
+                {project.videoId ? (
+                  <div
+                    className="demo-trigger"
+                    onClick={(e) => openVideo(project.videoId, e)}
+                  >
+                    <FaPlay size={12} /> Watch Demo
+                  </div>
+                ) : (
+                  <a
+                    className="demo-trigger"
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaGithub size={13} /> View Code
+                  </a>
+                )}
 
                 <div className="project-tech">
                   {project.tech.map((tech) => (
