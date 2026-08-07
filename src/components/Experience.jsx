@@ -18,7 +18,7 @@ const Experience = () => {
     },
     {
       company: 'Consultadd Inc.',
-      position: 'Software Engineer (Trainee)',
+      position: 'Software Engineer',
       period: 'May 2025 to Oct 2025',
       location: 'Pune, Maharashtra',
       achievements: [
@@ -27,7 +27,7 @@ const Experience = () => {
         'Resolved production issues via structured debugging and logging, improving system stability',
         'Translated client requirements into working demos and business aligned APIs with cross functional teams',
       ],
-      tech: ['Java', 'Spring Boot', 'Hibernate', 'REST APIs', 'Microservices', 'Agile'],
+      tech: ['Java', 'Spring Boot', 'Hibernate', 'REST APIs', 'Python', 'Streamlit', 'Agile'],
     },
     {
       company: 'Independent AI Engineering',

@@ -70,6 +70,7 @@
   align-items: center;
   gap: 6px;
   margin-top: 6px;
+  min-height: 1.4em;
 }
 
 .title-text {

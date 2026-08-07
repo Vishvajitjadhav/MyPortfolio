@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { motion } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaDownload } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -10,6 +10,9 @@ import profileImage4 from '../assets/profile4.jpg'
 // Skill "particles" that orbit the planet. Split across two rings for depth.
 const DEV_WORDS = ['Java', 'Spring Boot', 'REST APIs', 'Microservices', 'SQL', 'DSA']
 const CREATIVE_WORDS = ['LLM', 'RAG', 'Vector Search', 'React', 'Storyteller', 'Designer']
+
+// Roles that cycle in the hero title
+const ROLES = ['Software Engineer', 'AI Developer']
 
 const splitRings = (words) => ({
   outer: words.slice(0, Math.ceil(words.length / 2)),
@@ -25,6 +28,33 @@ const Hero = forwardRef((props, ref) => {
   const [currentProfileImage, setCurrentProfileImage] = useState(profileImage)
   const [isFlipping, setIsFlipping] = useState(false)
   const [words, setWords] = useState(DEV_WORDS)
+
+  // Typewriter that alternates between the roles
+  const [roleIndex, setRoleIndex] = useState(0)
+  const [typed, setTyped] = useState('')
+  const [deleting, setDeleting] = useState(false)
+
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      setTyped(ROLES[0])
+      return
+    }
+    const full = ROLES[roleIndex]
+    if (!deleting && typed === full) {
+      const hold = setTimeout(() => setDeleting(true), 1800)
+      return () => clearTimeout(hold)
+    }
+    if (deleting && typed === '') {
+      setDeleting(false)
+      setRoleIndex((i) => (i + 1) % ROLES.length)
+      return
+    }
+    const t = setTimeout(() => {
+      setTyped(full.substring(0, deleting ? typed.length - 1 : typed.length + 1))
+    }, deleting ? 45 : 95)
+    return () => clearTimeout(t)
+  }, [typed, deleting, roleIndex])
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
@@ -88,7 +118,7 @@ const Hero = forwardRef((props, ref) => {
               <span className="name-last">Jadhav</span>
             </motion.h1>
             <motion.div className="hero-title" variants={itemVariants}>
-              <span className="title-text">Software Engineer</span>
+              <span className="title-text">{typed}</span>
               <span className="title-cursor">|</span>
             </motion.div>
             <motion.div className="hero-specialty" variants={itemVariants}>
