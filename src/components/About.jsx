@@ -48,10 +48,10 @@ const About = () => {
               I'm a Software Engineer based in <span className="highlight">Pune, India</span>, working at the intersection of <span className="highlight">Java/Spring Boot backend systems</span> and <span className="highlight">production AI</span>. Right now I'm an <span className="highlight">AI Developer at Speed IT Innovations</span>, building LLM-powered features and RAG pipelines for real users.
             </p>
             <p className="about-description">
-              What I care about is correctness under load — <span className="highlight">concurrency-safe, transactional</span> services, clean architecture, and APIs that hold up in production. I've shipped end-to-end applications that pair solid backends with <span className="highlight">LLM integration</span>, <span className="highlight">vector search</span>, and React frontends.
+              What I care about is correctness under load: <span className="highlight">concurrency safe, transactional</span> services, clean architecture, and APIs that hold up in production. I've shipped end to end applications that pair solid backends with <span className="highlight">LLM integration</span>, <span className="highlight">vector search</span>, and React frontends.
             </p>
             <p className="about-description">
-              Away from the editor, I'm a storyteller — writing and performing in theater — which is where I sharpened the collaboration, clarity, and calm-under-pressure I bring to every team I join.
+              Away from the editor, I'm a storyteller who writes and performs in theater, which is where I sharpened the collaboration, clarity, and calm under pressure I bring to every team I join.
             </p>
           </motion.div>
 
@@ -83,10 +83,10 @@ const About = () => {
               <h3 className="card-title">Achievements</h3>
               <div className="card-content">
                 <ul className="achievements-list">
-                  <li>Shipped 3 full-stack GenAI applications end to end</li>
-                  <li>Built a concurrency-safe hotel-booking backend (Yatrik)</li>
+                  <li>Shipped 3 full stack GenAI applications end to end</li>
+                  <li>Built a concurrency safe hotel booking backend (Yatrik)</li>
                   <li>Certified in Generative AI with LLMs (DeepLearning.AI)</li>
-                  <li>Led theater teams at state-level competitions</li>
+                  <li>Led theater teams at state level competitions</li>
                 </ul>
               </div>
             </motion.div>

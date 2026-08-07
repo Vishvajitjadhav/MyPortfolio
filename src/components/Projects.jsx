@@ -18,52 +18,48 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'Yatrik – Scalable Hotel Booking System',
+      title: 'Yatrik Hotel Booking Platform',
       period: 'Jan 2026',
-      description: 'A heavy, scalable backend booking system inspired by Airbnb. Designed with concurrency-safe workflows preventing double booking using atomic availability checks. Implemented dynamic pricing engine using Decorator Design Pattern for flexible pricing strategies. Built role-based access control and booking lifecycle management. Focused on massive scalability, system design, and clean architecture principles.',
+      summary: 'A scalable, Airbnb style booking backend with concurrency safe availability, a dynamic pricing engine, and Stripe payments.',
       tech: ['Java', 'Spring Boot', 'PostgreSQL'],
       github: 'https://github.com/Vishvajitjadhav/Yatrik-backend',
-      demo: '', // Kept blank as requested
+      demo: '',
       color: '#E11D48',
       image: `${import.meta.env.BASE_URL}yatrik.jpg`,
-      videoId: '1ij9CAPaNIpBysmKZljSAbhinGGyZXwuD', // No video for Yatrik
-      featured: true
+      videoId: '1ij9CAPaNIpBysmKZljSAbhinGGyZXwuD',
     },
     {
       title: 'AI Interview Copilot',
       period: 'Mar 2026',
-      description: 'Developed an AI-powered platform that generates personalized interview preparation roadmaps based on resume, role, and company inputs. Designed backend APIs for dynamic roadmap generation and structured response handling using LLM integration. Implemented JWT-based authentication and secure API workflows. Engineered modular architecture separating AI integration, business logic, and API layers. Deployed full-stack application using Render for backend and Vercel for frontend.',
+      summary: 'A full stack app that generates personalized interview prep roadmaps using structured LLM workflows, with JWT auth. Deployed live.',
       tech: ['React', 'Spring Boot', 'Java', 'Groq LLM'],
       github: 'https://github.com/Vishvajitjadhav/ai-interview-copilot',
       demo: 'https://ai-interview-copilot-sooty.vercel.app',
       color: '#3b82f6',
       image: `${import.meta.env.BASE_URL}ai-copilot.jpg`,
-      videoId: '11gO18mUmLRy-MPVTTWdJ_ef22SEtP7Ts', // Extracted from Drive link
-      featured: true
+      videoId: '11gO18mUmLRy-MPVTTWdJ_ef22SEtP7Ts',
     },
     {
       title: 'RAG File Search System',
       period: 'Dec 2025',
-      description: 'An offline Retrieval-Augmented Generation system enabling local semantic search across files and folders. Built a retrieval pipeline with chunking, embedding generation, and vector similarity search over documents, then integrated an LLM for context-grounded answers — improving retrieval accuracy over plain keyword search.',
+      summary: 'An offline system for local semantic search across files. Chunking, embeddings, and vector search feed an LLM for grounded answers.',
       tech: ['Python', 'Embeddings', 'Vector Search', 'LLM'],
       github: 'https://github.com/Vishvajitjadhav/RAG-File-Search-System',
       demo: '',
       color: '#22d3ee',
       image: null,
       videoId: '',
-      featured: true
     },
     {
       title: 'Smart Meeting Summary Generator',
       period: 'Feb 2026',
-      description: 'Built AI-based summarization system using LLMs to extract key insights from meetings. Reduced output inconsistency using schema validation and structured formatting. Designed modular architecture to support multiple LLM providers.',
+      summary: 'An LLM based meeting summarizer with schema validated structured output and a modular, multi provider architecture.',
       tech: ['Python', 'Streamlit', 'LLM'],
       github: 'https://github.com/Vishvajitjadhav/Smart-Meeting-Summary-Generator',
-      demo: '', // Kept blank as requested
+      demo: '',
       color: '#8b5cf6',
       image: `${import.meta.env.BASE_URL}smart-meeting.jpg`,
-      videoId: '1oR49mSGh14Pw9WiO8HKk94mN1JtoJ0oj', // Extracted from Drive link
-      featured: true
+      videoId: '1oR49mSGh14Pw9WiO8HKk94mN1JtoJ0oj',
     },
   ]
 
@@ -166,7 +162,7 @@ const Projects = () => {
                 </div>
                 
                 <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
+                <p className="project-description">{project.summary}</p>
 
                 {project.videoId ? (
                   <div

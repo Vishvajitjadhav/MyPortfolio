@@ -8,7 +8,7 @@ const Education = () => {
       institution: 'Savitribai Phule Pune University',
       degree: 'B.E. in Computer Engineering',
       location: 'Pune, Maharashtra',
-      period: 'Jul 2020 – May 2024',
+      period: 'Jul 2020 to May 2024',
       grade: 'CGPA: 8.49/10',
       description: 'Focused on software engineering, data structures, algorithms, and system design.',
     },
@@ -38,7 +38,7 @@ const Education = () => {
       inProgress: false,
     },
     {
-      title: 'AWS Certified Developer – Associate',
+      title: 'AWS Certified Developer Associate',
       issuer: 'Amazon Web Services',
       meta: 'In Progress · Target Sep 2026',
       inProgress: true,

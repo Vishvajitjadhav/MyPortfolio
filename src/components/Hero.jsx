@@ -101,8 +101,8 @@ const Hero = forwardRef((props, ref) => {
               <span className="spec-pill">LLM / RAG</span>
             </motion.div>
             <motion.p className="hero-description" variants={itemVariants}>
-              I build Java/Spring Boot backend systems and production LLM/RAG features —
-              concurrency-safe transactional workflows, REST microservices, and end-to-end
+              I build Java/Spring Boot backend systems and production LLM/RAG features:
+              concurrency safe transactional workflows, REST microservices, and end to end
               AI experiences with React frontends and vector search.
             </motion.p>
             <motion.div className="hero-buttons" variants={itemVariants}>
